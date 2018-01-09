@@ -46,11 +46,11 @@ By default, the [jsmediatags](https://github.com/aadsm/jsmediatags) library is u
 ##### `depth`
 _integer_
 
-By default, this tool will scan two directories deep (in order to accomodate `media/creator/album/title.ext` formats). You can manually set the search depth by passing an integer to the `depth` option.
+By default, this tool will scan two directories deep (in order to accomodate `media/creator/album/title.ext` formats). You can manually set the search depth by passing an integer to the `depth` option. `0` means no recursion, will only search the supplied directory.
 
 ##### Example Options
 
-`{"id3": false, "depth": 1}`
+`{"id3": false, "depth": 0}`
 
 
 
