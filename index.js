@@ -1,53 +1,63 @@
-'use strict';
-module.exports = function (artist, album, size, cb) {
-	if (typeof artist !== 'string') {
-		throw new Error('Expected a string');
-	}
-	if (typeof album === 'function') {
-		cb = album;
-		album = size = null;
-	} else if (typeof size === 'function') {
-		cb = size;
-		size = null;
+'use strict'
+
+var readdirp = require('readdirp')
+
+// file extension -> type mapping
+var imageTypes = ['.jpg', '.jpeg', '.gif', '.png', '.tiff']
+var audioTypes = ['.mp3', '.wav', '.ogg']
+var videoTypes = ['.mp4', '.webm', '.ogv', 'flv']
+
+// allowed file extensions
+var types = [].concat(imageTypes, audioTypes, videoTypes)
+
+
+function scanPath(path) {
+	var settings = {
+	    root: path,
+	    entryType: 'files',
+	    // filter files by extensions like *.mp3
+	    fileFilter: types.map( function(x) { return '*' + x } ),
+	    directoryFilter: ['!.!'],
+	    depth: 2
 	}
 
-	var data = '';
-	var sizes = ['small', 'medium', 'large', 'extralarge', 'mega'];
-	var method = (album === null) ? 'artist' : 'album';
-	var apiKey = '4cb074e4b8ec4ee9ad3eb37d6f7eb240';
-	var http = require('http');
-	var artist = artist.replace ("&", "and");
-	var options = {
-	  host: 'ws.audioscrobbler.com',
-	  port: 80,
-	  path: encodeURI('/2.0/?format=json&api_key=' + apiKey + '&method=' + method + '.getinfo&artist=' + artist + '&album=' + album)
-	};
-	http.get(options, function(resp){
-	  resp.on('data', function(chunk){
-	  	data += chunk;
-	  });
-	  resp.on('end', function(){
-	    var json = JSON.parse(data);
-	    if (typeof(json.error) !== 'undefined'){
-	    	// Error
-	    	return cb('JSON Error: ' + json.message, '');
-	    } else if (sizes.indexOf(size) !== -1 && json[method] && json[method].image){
-	    	// Return image in specific size
-	    	json[method].image.forEach(function(e, i) {
-	    		if (e.size === size){
-	    			cb(null, e['#text']);
-	    		}
-	    	});
-	    } else if (json[method] && json[method].image) {
-	    	// Return largest image
-	    	var i = json[method].image.length - 2;
-	    	cb(null, json[method].image[i]['#text']);
-	    } else {
-	    	// No image art found
-	    	cb('Error: No image found.', '');
-	    }
-	  });
-	}).on("error", function(e){
-	    return cb('Got error: ' + e.message);
-	});
-};
+	var files = []
+
+	readdirp(settings)
+	    .on('data', function (entry) {
+	    	// store the file fullpath
+	        files.push(entry.fullPath)
+	    })
+	    .on('warn', function(warn){
+	        console.log("Warn: ", warn)
+	    })
+	    .on('error', function(err){
+	        console.log("Error: ", err)
+	    })
+	    .on('end', function(){
+	        console.log(files)
+	    })
+}
+
+function toXspf(files) {
+
+	// (id3) ? getId3(file) : getDirectoryStructure(file)
+}
+module.exports = function (filesOrPath, options) {
+	if (typeof options === 'object') {
+		options.depth = (options.depth) ? options.depth : 2
+		options.id3 = (options.id3) ? options.id3 : true
+	}
+
+	if (typeof filesOrPath === 'string') {
+		// path -> array of files
+		console.log('path: ', filesOrPath)
+		var files = scanPath(filesOrPath)
+		toXspf(files)
+	} else if (typeof filesOrPath === 'object') {
+		// array of files -> XSPF Playlist w/ scanning
+		toXspf(filesOrPath)
+	} else {
+		throw new Error('Error: Expected a filepath string or array of files');
+	}
+}

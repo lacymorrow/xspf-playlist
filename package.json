@@ -1,7 +1,7 @@
 {
   "name": "xspf-playlist",
   "version": "1.0.4",
-  "description": "Fetch the cover art for an artist or album: The Beatles ➔ http://path/to/beatles.jpg",
+  "description": "Scan a directory and generate an xspf playlist.",
   "license": "MIT",
   "repository": "lacymorrow/xspf-playlist",
   "bin": {
@@ -36,5 +36,9 @@
   ],
   "devDependencies": {
     "mocha": "*"
+  },
+  "dependencies": {
+    "jsmediatags": "^3.8.1",
+    "readdirp": "^2.1.0"
   }
 }
