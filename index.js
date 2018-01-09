@@ -146,11 +146,22 @@ function toXspf(files) {
 	return out
 }
 
-module.exports = function (filesOrPath, options) {
+module.exports = function (filesOrPath, options, cb) {
 	var files
 	var defaultOptions = {
 		depth: 2,
 		id3: true
+	}
+
+	// no options passed, save callback
+	if (typeof options === 'function') {
+		cb = options
+	}
+
+	if (typeof cb !== 'function') {
+		cb = function (err, res) {
+			// do nothing
+		}
 	}
 
 	try {
@@ -167,12 +178,12 @@ module.exports = function (filesOrPath, options) {
 			// grab track info from id3 or directory structure
 			addDetails(files, options.id3, function(detailedFiles){
 				// generate the xspf playlist
-				console.log(toXspf(detailedFiles))
+				cb(null, toXspf(detailedFiles))
 			})
 		})
 	} else if (typeof filesOrPath === 'object') {
 		// received an existing object, generate the xspf playlist synchronously
-		toXspf(filesOrPath)
+		cb(null, toXspf(filesOrPath))
 	} else {
 		throw new Error('Error: Expected a directory string or array of files');
 	}
