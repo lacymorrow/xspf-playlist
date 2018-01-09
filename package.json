@@ -1,0 +1,40 @@
+{
+  "name": "xspf-playlist",
+  "version": "1.0.4",
+  "description": "Fetch the cover art for an artist or album: The Beatles ➔ http://path/to/beatles.jpg",
+  "license": "MIT",
+  "repository": "lacymorrow/xspf-playlist",
+  "bin": {
+    "xspf-playlist": "cli.js"
+  },
+  "author": {
+    "name": "Lacy Morrow",
+    "email": "me@lacymorrow.com",
+    "url": "http://lacymorrow.com"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "files": [
+    "cli.js",
+    "index.js"
+  ],
+  "keywords": [
+    "cli",
+    "bin",
+    "app",
+    "media",
+    "xspf",
+    "playlist",
+    "image",
+    "url",
+    "uri",
+    "path"
+  ],
+  "devDependencies": {
+    "mocha": "*"
+  }
+}
