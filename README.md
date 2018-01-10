@@ -7,9 +7,9 @@ Generate an XSPF playlist file for audio and video files using NodeJS.
 
 Use it on the command-line once or as a module in your program as a dead-simple way to keep a playlist on the internet up to date. 
 
-_A PHP implementation of XSPF-Playlist here: https://github.com/lacymorrow/xspf-playlister-php_
+_A PHP implementation of XSPF Playlist here: https://github.com/lacymorrow/xspf-playlister-php_
 
-_A Python implementation of XSPF-Playlist here: https://github.com/lacymorrow/xspf-playlister-py_
+_A Python implementation of XSPF Playlist here: https://github.com/lacymorrow/xspf-playlister-py_
 
 Created for: [lacymorrow/xspf-jukebox](https://github.com/lacymorrow/xspf-jukebox).
 
