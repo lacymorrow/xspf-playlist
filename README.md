@@ -17,7 +17,7 @@ Place all of your media files into a single directory (often named `media`) and 
 
 ### xspfPlaylist(path, [{options}], [callback(err, res)])
 
-```
+```javascript
 var xspfPlaylist = require('xspf-playlist')
 
 // example scanning media directory
