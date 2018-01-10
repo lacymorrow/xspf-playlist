@@ -1,4 +1,4 @@
-XSPF Playlist
+XSPF Playlist [![Build Status](https://travis-ci.org/lacymorrow/xspf-playlist.svg?branch=master)](https://travis-ci.org/lacymorrow/xspf-playlist)
 ===============
 
 > *Automatically create an XSPF Playlist for your media, with ID3 support*
