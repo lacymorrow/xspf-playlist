@@ -15,7 +15,7 @@ Created for: [lacymorrow/xspf-jukebox](https://github.com/lacymorrow/xspf-jukebo
 ## Usage
 Place all of your media files into a single directory (often named `media`) and call [xspf-playlist](https://github.com/lacymorrow/xspf-playlist) with the following signature. Your media directory will be scanned and media files will be enumerated and exported into a formatted XSPF playlist file automatically. That's it!
 
-### xspfPlaylist(path, [{options}], [callback(err, res)])
+### xspfPlaylist( path, [{ options }], [ callback( err, res ) ])
 
 ```javascript
 var xspfPlaylist = require('xspf-playlist')
