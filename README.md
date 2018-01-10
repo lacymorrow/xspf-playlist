@@ -18,13 +18,24 @@ Place all of your media files into a single directory (often named `media`) and 
 ### xspfPlaylist(path, [{options}], [callback(err, res)])
 
 ```
-// example
-
 var xspfPlaylist = require('xspf-playlist')
 
+// example scanning media directory
 xspfPlaylist('/media', {'id3': true, 'depth': 0}, function(err, res) {
 	// do something...
 	console.log(res)
+})
+
+// example passing a js object of file objects
+xspfPlaylist({
+		file1: {
+			title: 'file1',
+			location: 'file1.mp3'
+		},
+		...
+	}, function (err, res) {
+		// do something
+		console.log(res)
 })
 ```
 
