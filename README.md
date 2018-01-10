@@ -1,4 +1,4 @@
-XSPF Playlister
+XSPF Playlist
 ===============
 
 > *Automatically create an XSPF Playlist for your media, with ID3 support*
@@ -13,15 +13,22 @@ _A Python implementation of XSPF-Playlist here: https://github.com/lacymorrow/xs
 Created for: [lacymorrow/xspf-jukebox](https://github.com/lacymorrow/xspf-jukebox).
 
 ## Usage
-Place all of your media files into a single directory (often named `media`). That's it!
+Place all of your media files into a single directory (often named `media`) and call [xspf-playlist](https://github.com/lacymorrow/xspf-playlist) with the following signature. Your media directory will be scanned and media files will be enumerated and exported into a formatted XSPF playlist file automatically. That's it!
 
-- root
-  - playlister.php
-  - getid3
-   
+### xspfPlaylist(path, [{options}], [callback(err, res)])
 
+```
+// example
 
-Tracks will be titled by their filename sans extension. Additional creator and album information can be provided by organizing your files into a `media/creator/album/title.ext` hierarchy. 
+var xspfPlaylist = require('xspf-playlist')
+
+xspfPlaylist('/media', {'id3': true, 'depth': 0}, function(err, res) {
+	// do something...
+	console.log(res)
+})
+```
+
+Tracks will be titled by their filename, sans-extension. Additional creator and album information can be provided by organizing your files into a `media/creator/album/title.ext` hierarchy. 
 
 An image may be associated with a track by giving it the same filename. To associate one image with an entire folder of tracks, give it the filename `artwork`. `artwork` images associate themselves to every sibling and child directory and may be placed anywhere in your media directory hierarchy, so an `artwork.jpg` in the `media` directory will act as a global image, filling in for every track that did not already have one provided.
 
@@ -38,6 +45,8 @@ node cli.js '/absolute/path/to/media' '{"id3": false}' > playlist.xspf
 
 ## Options
 
+`options` is a valid JSON object
+
 ##### `id3`
 _boolean_
 
@@ -48,7 +57,7 @@ _integer_
 
 By default, this tool will scan two directories deep (in order to accomodate `media/creator/album/title.ext` formats). You can manually set the search depth by passing an integer to the `depth` option. `0` means no recursion, will only search the supplied directory.
 
-##### Example Options
+##### Example options
 
 `{"id3": false, "depth": 0}`
 
