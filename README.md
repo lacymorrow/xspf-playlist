@@ -8,9 +8,11 @@ Generate an XSPF playlist file for audio and video files using NodeJS.
 Use it on the command-line once or as a module in your program as a dead-simple way to keep a playlist on the internet up to date. 
 
 _A PHP implementation of XSPF-Playlist here: https://github.com/lacymorrow/xspf-playlister-php_
+
 _A Python implementation of XSPF-Playlist here: https://github.com/lacymorrow/xspf-playlister-py_
 
 Created for: [lacymorrow/xspf-jukebox](https://github.com/lacymorrow/xspf-jukebox).
+
 
 ## Usage
 Place all of your media files into a single directory (often named `media`) and call [xspf-playlist](https://github.com/lacymorrow/xspf-playlist) with the following signature. Your media directory will be scanned and media files will be enumerated and exported into a formatted XSPF playlist file automatically. That's it!
@@ -45,6 +47,29 @@ Tracks will be titled by their filename, sans-extension. Additional creator and 
 
 An image may be associated with a track by giving it the same filename. To associate one image with an entire folder of tracks, give it the filename `artwork`. `artwork` images associate themselves to every sibling and child directory and may be placed anywhere in your media directory hierarchy, so an `artwork.jpg` in the `media` directory will act as a global image, filling in for every track that did not already have one provided.
 
+#### ID3
+
+By default, supported files will be scanned for ID3 tag info which will automatically fill the following track information if present:
+
+* `title`
+* `artist`
+* `album`
+* `year`
+* `comment`
+* `track`
+* `genre`
+* `picture`
+* `lyrics`
+
+
+###### Tag readers
+
+* ID3v1
+* ID3v2 (with unsynchronisation support!)
+* MP4
+* FLAC
+
+
 #### File Types
 
 Supports `mp3`, `wav`, and `ogg` audio and `mp4`, `webm`, and `ogv` video formats. 
@@ -55,6 +80,7 @@ Supports `mp3`, `wav`, and `ogg` audio and `mp4`, `webm`, and `ogv` video format
 # from the xspf-playlist directory
 node cli.js '/absolute/path/to/media' '{"id3": false}' > playlist.xspf
 ```
+
 
 ## Options
 
@@ -73,7 +99,6 @@ By default, this tool will scan two directories deep (in order to accomodate `me
 ##### Example options
 
 `{"id3": false, "depth": 0}`
-
 
 
 ## License
