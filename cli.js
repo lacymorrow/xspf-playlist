@@ -22,16 +22,14 @@ if (process.argv.indexOf('-v') !== -1 || process.argv.indexOf('--version') !== -
 	return;
 }
 
-if (process.argv.length < 3){ 
+if (process.argv.length < 3) {
 	// Not enough args
 	help();
 } else if (process.argv.length > 3) {
-	xspfPlaylist(path, process.argv[3], function (err, res) {
-		console.log(res)
-	})
-} else { 
+	xspfPlaylist(path, process.argv[3])
+		.pipe(process.stdout)
+} else {
 	// scan path and generate xspf playlist
-	xspfPlaylist(path, function (err, res) {
-		console.log(res)
-	})
+	xspfPlaylist(path)
+		.pipe(process.stdout)
 }
