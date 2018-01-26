@@ -1,6 +1,6 @@
 {
   "name": "xspf-playlist",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Scan a directory and generate an xspf playlist. Supports ID3 and directory labelling for track info.",
   "license": "MIT",
   "repository": "lacymorrow/xspf-playlist",

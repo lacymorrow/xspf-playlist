@@ -79,8 +79,9 @@ class AddDetails extends stream.Transform {
 	}
 
 	id3(file, next) {
+		let self = this;
 		function done() {
-			this.push(file)
+			self.push(file)
 			next()
 		}
 
