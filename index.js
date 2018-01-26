@@ -62,7 +62,7 @@ class AddDetails extends stream.Transform {
 		this.__id3 = id3
 	}
 
-	id3(file, next) {
+	dir(file, next) {
 		const p = path.parse(file.relativePath)
 		if (p.base) {
 			// get album (artist if single obj)
@@ -78,7 +78,7 @@ class AddDetails extends stream.Transform {
 		next()
 	}
 
-	jsmedia(file, next) {
+	id3(file, next) {
 		function done() {
 			this.push(file)
 			next()
@@ -107,7 +107,7 @@ class AddDetails extends stream.Transform {
 	}
 
 	_transform(file, enc, next) {
-		this.__id3 ? this.id3(file, next) : this.jsmedia(file, next)
+		this.__id3 ? this.id3(file, next) : this.dir(file, next)
 	}
 }
 
