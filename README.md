@@ -1,17 +1,11 @@
 XSPF Playlist [![npm version](https://badge.fury.io/js/xspf-playlist.svg)](https://badge.fury.io/js/xspf-playlist) [![Build Status](https://travis-ci.org/lacymorrow/xspf-playlist.svg?branch=master)](https://travis-ci.org/lacymorrow/xspf-playlist)
 ===============
 
-> *Automatically create an XSPF Playlist for your media, with ID3 support*
+> *Automagic XSPF Playlists*
 
-Generate an XSPF playlist file for audio and video files using NodeJS.
-
-Originally for: [lacymorrow/xspf-jukebox](https://github.com/lacymorrow/xspf-jukebox).
+Generate an XSPF playlist file for audio and video files and autofill track details from ID3 tags.
 
 Use it on the command-line once or as a module in your program as a dead-simple way to keep a playlist on the internet up to date. 
-
-_A PHP implementation of XSPF Playlist here: https://github.com/lacymorrow/xspf-playlister-php_
-
-_A Python implementation of XSPF Playlist here: https://github.com/lacymorrow/xspf-playlister-py_
 
 
 ## Usage
@@ -95,6 +89,15 @@ By default, this tool will scan two directories deep (in order to accomodate `me
 ##### Example options
 
 `{"id3": false, "depth": 0}`
+
+
+## Related 
+
+* Used by: [lacymorrow/xspf-jukebox](https://github.com/lacymorrow/xspf-jukebox)
+
+* [lacymorrow/xspf-playlister-php](https://github.com/lacymorrow/xspf-playlister-php)
+
+* [lacymorrow/xspf-playlister-py](https://github.com/lacymorrow/xspf-playlister-py)
 
 
 ## License
