@@ -1,7 +1,7 @@
 {
   "name": "xspf-playlist",
   "version": "1.0.1",
-  "description": "Scan a directory and generate an xspf playlist. Supports ID3 and directory labelling for track info.",
+  "description": "Scan a directory and generate an xspf playlist. Supports ID3 tags.",
   "license": "MIT",
   "repository": "lacymorrow/xspf-playlist",
   "bin": {
@@ -13,7 +13,7 @@
     "url": "http://lacymorrow.com"
   },
   "engines": {
-    "node": "*"
+    "node": ">=0.10.0"
   },
   "scripts": {
     "test": "mocha"
@@ -35,7 +35,7 @@
     "path"
   ],
   "devDependencies": {
-    "mocha": "*"
+    "mocha": "5.0.1"
   },
   "dependencies": {
     "jsmediatags": "^3.8.1",
