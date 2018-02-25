@@ -13,7 +13,7 @@
     "url": "http://lacymorrow.com"
   },
   "engines": {
-    "node": "*"
+    "node": ">=0.10.0"
   },
   "scripts": {
     "test": "mocha"
@@ -35,7 +35,7 @@
     "path"
   ],
   "devDependencies": {
-    "mocha": "*"
+    "mocha": "^5.1.0"
   },
   "dependencies": {
     "jsmediatags": "^3.8.1",
