@@ -11,26 +11,31 @@ Use it on the command-line once or as a module in your program as a dead-simple 
 ## Usage
 Place all of your media files into a single directory (often named `media`) and call [xspf-playlist](https://github.com/lacymorrow/xspf-playlist) with the following signature. Your media directory will be scanned and media files will be enumerated and exported into a formatted XSPF playlist file automatically. That's it!
 
-### xspfPlaylist( path, [{ options }], [ callback( err, res ) ])
+### xspfPlaylist( media, [{ options }], [ callback( err, res ) ])
 
-Accepts either a directory path as a string, or an object of track objects.
+Accepts either a directory path as a string or an array of track objects as media input. A callback API is provided. Returns a Promise which resolves to a string.
 
 ```javascript
 const xspfPlaylist = require('xspf-playlist')
 
-// example scanning media directory
+// Scanning a directory
 xspfPlaylist('/media', {'id3': true, 'depth': 0})
-	.pipe(process.stdout)
+	.then(console.log)
 
-// example passing a js object of file objects
+// Using a callback
+xspfPlaylist('/media', function (err, res) {
+	console.log(res)
+})
+
+
+// Example passing an object
 xspfPlaylist([
 	{
 		title: 'file1',
 		location: 'file1.mp3'
 	},
 	...
-])
-.pipe(process.stdout)
+]).then(console.log)
 ```
 
 Tracks will be titled by their filename, sans-extension. Additional creator and album information can be provided by organizing your files into a `media/creator/album/title.ext` hierarchy. 
