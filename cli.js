@@ -11,8 +11,8 @@ const cli = meow( `
 	  --id3,   -i  Use track ID3 meta information 
 	  --depth, -d  Number of directories deep to search
 
-	Examples
-	  $ xspf-playlist '/path/to/media' '{"id3": true, "depth": 1}'
+	Example
+	  $ xspf-playlist '/path/to/media' --id3 --depth 1
 	  // => ...
 `, {
 	flags: {
@@ -27,9 +27,9 @@ const cli = meow( `
 } )
 
 let opts = {}
-
 if ( typeof cli.flags.d === 'number' ) opts.depth = cli.flags.d
 if ( cli.flags.i ) opts.id3 = !!cli.flags.i
+if ( !cli.input[0] ) cli.showHelp()
 
 xspfPlaylist( cli.input[0], opts )
 	.then( console.log )
