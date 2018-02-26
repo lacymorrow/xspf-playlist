@@ -32,7 +32,7 @@ test.cb( 'returns a valid xspf playlist callback', t => {
 		}
 	], ( err, res ) => {
 
-		if ( err ) t.end()
+		err && t.end(err)
 		t.is( res.indexOf( '<?xml' ), 0, 'should start with <?xml>' )
 		t.not( res.indexOf( '<title>test</title>' ), -1, '<title>test</title> should be present' )
 		t.end()
