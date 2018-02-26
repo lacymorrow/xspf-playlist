@@ -157,6 +157,7 @@ class FromArray extends stream.Readable {
 	}
 
 	_read () {
+
 		const file = this.arr[this.idx++] || null
 		this.push( file )
 
