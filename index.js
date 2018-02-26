@@ -211,6 +211,7 @@ class Xspf extends stream.Transform {
 
 module.exports = function ( filesOrPath, options, cb ) {
 
+	// Massage inputs
 	if ( typeof options === 'function' ) {
 
 		cb = options
@@ -222,11 +223,13 @@ module.exports = function ( filesOrPath, options, cb ) {
 
 	if ( typeof options === 'string' ) options = JSON.parse( options )
 
+	// Default options
 	const opts = Object.assign( {
 		depth: 2,
 		id3: true
 	}, options )
 
+	// Start streaming ;)
 	let stream
 	let output = ''
 	switch ( typeof filesOrPath ) {
