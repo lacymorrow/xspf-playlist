@@ -32,4 +32,4 @@ if ( typeof cli.flags.d === 'number' ) opts.depth = cli.flags.d
 if ( cli.flags.i ) opts.id3 = !!cli.flags.i
 
 xspfPlaylist( cli.input[0], opts )
-	.then( console.log	 )
+	.then( console.log )

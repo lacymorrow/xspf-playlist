@@ -36,8 +36,7 @@
   ],
   "devDependencies": {
     "ava": "^0.25.0",
-    "eslint": "^4.18.1",
-    "mocha": "^5.0.1"
+    "eslint": "^4.18.1"
   },
   "dependencies": {
     "jsmediatags": "^3.8.1",

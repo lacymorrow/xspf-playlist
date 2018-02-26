@@ -157,7 +157,6 @@ class FromArray extends stream.Readable {
 	}
 
 	_read () {
-
 		const file = this.arr[this.idx++] || null
 		this.push( file )
 
@@ -229,7 +228,6 @@ module.exports = function ( filesOrPath, options, cb ) {
 
 	let stream
 	let output = ''
-
 	switch ( typeof filesOrPath ) {
 
 	case 'string':
@@ -266,7 +264,7 @@ module.exports = function ( filesOrPath, options, cb ) {
 	} )
 
 	// Callback + return
-	if ( cb ) return promise.then( cb, cb )
+	if ( cb ) return promise.then( res => cb( null, res ), err => cb( err, null ) )
 	return promise
 
 }
