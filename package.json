@@ -41,6 +41,7 @@
   },
   "dependencies": {
     "jsmediatags": "^3.8.1",
+    "meow": "^4.0.0",
     "readdirp": "^2.1.0"
   }
 }

@@ -62,3 +62,5 @@ typings/
 
 # media folder (testing)
 media
+
+package-lock.json

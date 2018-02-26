@@ -1,53 +1,35 @@
 #!/usr/bin/env node
 'use strict'
-var pkg = require( './package.json' )
-var xspfPlaylist = require( './index' )
-var path = process.argv[2]
+const meow = require( 'meow' )
+const xspfPlaylist = require( './index' )
 
-var help = function () {
+const cli = meow( `
+	Usage
+	  $ xspf-playlist media [{options}]
 
-	console.log( '\n' + pkg.description )
-	console.log( '\nUsage' )
-	console.log( '  $ xspf-playlist path [{options}]\n' )
-	console.log( 'Example' )
-	console.log( '  $ xspf-playlist \'/path/to/media\' \'{"id3": true, "depth": 1}\'' )
+	Options
+	  --id3,   -i  Use track ID3 meta information 
+	  --depth, -d  Number of directories deep to search
 
-}
-
-var main = function () {
-
-	if ( process.argv.indexOf( '-h' ) !== -1 || process.argv.indexOf( '--help' ) !== -1 ) {
-
-		help()
-		return
-
+	Examples
+	  $ xspf-playlist '/path/to/media' '{"id3": true, "depth": 1}'
+	  // => ...
+`, {
+	flags: {
+		id3: {
+			alias: 'i'
+		},
+		depth: {
+			type: 'number',
+			alias: 'd'
+		}
 	}
+} )
 
-	if ( process.argv.indexOf( '-v' ) !== -1 || process.argv.indexOf( '--version' ) !== -1 ) {
+let opts = {}
 
-		console.log( pkg.version )
-		return
+if ( typeof cli.flags.d === 'number' ) opts.depth = cli.flags.d
+if ( cli.flags.i ) opts.id3 = !!cli.flags.i
 
-	}
-
-	if ( process.argv.length < 3 ) {
-
-		// Not enough args
-		help()
-
-	} else if ( process.argv.length >= 3 ) {
-
-		xspfPlaylist( path, process.argv[2] )
-			.pipe( process.stdout )
-
-	} else {
-
-		// scan path and generate xspf playlist
-		xspfPlaylist( path )
-			.pipe( process.stdout )
-
-	}
-
-}
-
-main()
+xspfPlaylist( cli.input[0], opts )
+	.then( console.log	 )

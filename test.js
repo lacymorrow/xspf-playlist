@@ -2,7 +2,7 @@
 import test from 'ava'
 var xspfPlaylist = require( './index' )
 
-test.cb( 'returns a valid xspf playlist',  t => {
+test.cb( 'returns a valid xspf playlist', t => {
 
 	t.plan( 2 )
 

@@ -209,32 +209,64 @@ class Xspf extends stream.Transform {
 
 }
 
-module.exports = function ( filesOrPath, options = {} ) {
+module.exports = function ( filesOrPath, options, cb ) {
 
-	if ( typeof options === 'string' ) {
+	if ( typeof options === 'function' ) {
 
-		options = JSON.parse( options )
+		cb = options
+		options = null
 
 	}
+
+	if ( typeof cb !== 'function' ) cb = null
+
+	if ( typeof options === 'string' ) options = JSON.parse( options )
 
 	const opts = Object.assign( {
 		depth: 2,
 		id3: true
 	}, options )
 
+	let stream
+	let output = ''
+
 	switch ( typeof filesOrPath ) {
 
 	case 'string':
-		return scanPath( filesOrPath, opts.depth )
+		// Got directory path (string), scan it
+		stream = scanPath( filesOrPath, opts.depth )
 			.pipe( new AddMeta() )
 			.pipe( new AddDetails( opts.id3 ) )
-			.pipe( new Xspf() )
+		break
 	case 'object':
-		return new FromArray( filesOrPath )
-			.pipe( new Xspf() )
+		// Got object of files, parse them
+		stream = new FromArray( filesOrPath )
+		break
 	default:
 		throw new Error( 'Error: Expected a directory string or array of files' )
 
 	}
+
+	// Convert the stream to a Promise
+	const promise = new Promise( ( resolve, reject ) => {
+
+		stream.pipe( new Xspf() )
+			.on( 'data', function ( buffer ) {
+
+				output += buffer.toString()
+
+			} )
+			.on( 'end', function () {
+
+				resolve( output )
+
+			} )
+			.on( 'error', reject )
+
+	} )
+
+	// Callback + return
+	if ( cb ) return promise.then( cb, cb )
+	return promise
 
 }
