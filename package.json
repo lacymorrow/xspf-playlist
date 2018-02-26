@@ -4,6 +4,7 @@
   "description": "Scan a directory and generate an xspf playlist. Supports ID3 tags.",
   "license": "MIT",
   "repository": "lacymorrow/xspf-playlist",
+  "main": "index.js",
   "bin": {
     "xspf-playlist": "cli.js"
   },
