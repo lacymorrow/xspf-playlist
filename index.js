@@ -243,6 +243,8 @@ module.exports = function ( filesOrPath, options, cb ) {
 	case 'object':
 		// Got object of files, parse them
 		stream = new FromArray( filesOrPath )
+			.pipe( new AddMeta() )
+			.pipe( new AddDetails( opts.id3 ) )
 		break
 	default:
 		throw new Error( 'Error: Expected a directory string or array of files' )

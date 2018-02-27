@@ -5,11 +5,18 @@ XSPF Playlist [![npm version](https://badge.fury.io/js/xspf-playlist.svg)](https
 
 Generate an XSPF playlist file for audio and video files and autofill track details from ID3 tags.
 
-Use it on the command-line once or as a module in your program as a dead-simple way to keep a playlist on the internet up to date. 
-
-
 ## Usage
-Place all of your media files into a single directory (often named `media`) and call [xspf-playlist](https://github.com/lacymorrow/xspf-playlist) with the following signature. Your media directory will be scanned and media files will be enumerated and exported into a formatted XSPF playlist file automatically. That's it!
+
+```bash
+  $ npm install -g xspf-playlist
+  
+  $ xspf-playlist 'path/to/media' '{"id3": false}' > playlist.xspf
+```
+
+Place media files into a directory (often named `media`) and pass it to [xspf-playlist](https://github.com/lacymorrow/xspf-playlist). Your media directory will be scanned and exported into an XSPF playlist file automatically. That's it!
+
+Nested directories can be treated as the `<artist>` and `<album>` fields with a hierarchy like `media/artist/album/track.xxx`
+
 
 ### xspfPlaylist( media, [{ options }], [ callback( err, res ) ])
 
@@ -21,14 +28,17 @@ const xspfPlaylist = require('xspf-playlist')
 // Scanning a directory
 xspfPlaylist('/media', {'id3': true, 'depth': 0})
 	.then(console.log)
+```
 
-// Using a callback
+###### Or, using a callback
+```javascript
 xspfPlaylist('/media', function (err, res) {
 	console.log(res)
 })
+```
 
-
-// Example passing an object
+###### Example passing an object
+```javascript
 xspfPlaylist([
 	{
 		title: 'file1',
@@ -38,7 +48,7 @@ xspfPlaylist([
 ]).then(console.log)
 ```
 
-Tracks will be titled by their filename, sans-extension. Additional creator and album information can be provided by organizing your files into a `media/creator/album/title.ext` hierarchy. 
+Tracks will be titled by their filename, sans-extension. Additional creator and album information can be provided by organizing your files into a `media/creator/album/title.xxx` hierarchy. 
 
 An image may be associated with a track by giving it the same filename. To associate one image with an entire folder of tracks, give it the filename `artwork`. `artwork` images associate themselves to every sibling and child directory and may be placed anywhere in your media directory hierarchy, so an `artwork.jpg` in the `media` directory will act as a global image, filling in for every track that did not already have one provided.
 
@@ -69,18 +79,10 @@ By default, supported files will be scanned for ID3 tag info which will automati
 
 Supports `mp3`, `wav`, and `ogg` audio and `mp4`, `webm`, and `ogv` video formats. 
 
-#### Command Line:
-
-```bash
-  $ npm install --global xspf-playlist
-  
-  $ xspf-playlist '/absolute/path/to/media' '{"id3": false}' > playlist.xspf
-```
-
 
 ## Options
 
-`options` is a valid JSON object
+`options` is a valid JSON object.
 
 ##### `id3`
 _boolean_
@@ -92,9 +94,9 @@ _integer_
 
 By default, this tool will scan two directories deep (in order to accomodate `media/creator/album/title.ext` formats). You can manually set the search depth by passing an integer to the `depth` option. `0` means no recursion, will only search the supplied directory.
 
-##### Example options
+##### Default options
 
-`{"id3": false, "depth": 0}`
+`{"id3": true, "depth": 2}`
 
 
 ## Related 
