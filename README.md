@@ -71,9 +71,10 @@ Supports `mp3`, `wav`, and `ogg` audio and `mp4`, `webm`, and `ogv` video format
 
 #### Command Line:
 
-```
-# from the xspf-playlist directory
-node cli.js '/absolute/path/to/media' '{"id3": false}' > playlist.xspf
+```bash
+  $ npm install --global xspf-playlist
+  
+  $ xspf-playlist '/absolute/path/to/media' '{"id3": false}' > playlist.xspf
 ```
 
 
