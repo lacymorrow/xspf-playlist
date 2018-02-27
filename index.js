@@ -50,8 +50,7 @@ class AddMeta extends stream.Transform {
 	}
 
 	_transform ( file, enc, next ) {
-
-		const { name, ext } = path.parse( file.name )
+		const { name, ext } = file.name
 
 		this.push( {
 			location: file.fullPath,
@@ -243,7 +242,6 @@ module.exports = function ( filesOrPath, options, cb ) {
 	case 'object':
 		// Got object of files, parse them
 		stream = new FromArray( filesOrPath )
-			.pipe( new AddMeta() )
 			.pipe( new AddDetails( opts.id3 ) )
 		break
 	default:
