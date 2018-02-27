@@ -50,6 +50,7 @@ class AddMeta extends stream.Transform {
 	}
 
 	_transform ( file, enc, next ) {
+
 		const { name, ext } = file.name
 
 		this.push( {
