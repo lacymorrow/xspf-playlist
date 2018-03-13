@@ -211,16 +211,29 @@ class Xspf extends stream.Transform {
 
 module.exports = function ( filesOrPath, options, cb ) {
 
+	let output = ''
+	let pipe = false
+	let stream
+
 	// Massage inputs
-	if ( typeof options === 'function' ) {
+	if ( typeof options === 'function' || options === true ) {
 
 		cb = options
 		options = null
 
 	}
+	// User wants a pipe returned
+	if ( cb === true ) {
 
+		pipe = cb
+		cb = null
+
+	}
+
+	// User wants a callback
 	if ( typeof cb !== 'function' ) cb = null
 
+	// Parse options
 	if ( typeof options === 'string' ) options = JSON.parse( options )
 
 	// Default options
@@ -230,8 +243,6 @@ module.exports = function ( filesOrPath, options, cb ) {
 	}, options )
 
 	// Start streaming ;)
-	let stream
-	let output = ''
 	switch ( typeof filesOrPath ) {
 
 	case 'string':
@@ -240,15 +251,20 @@ module.exports = function ( filesOrPath, options, cb ) {
 			.pipe( new AddMeta() )
 			.pipe( new AddDetails( opts.id3 ) )
 		break
+
 	case 'object':
 		// Got object of files, parse them
 		stream = new FromArray( filesOrPath )
 			.pipe( new AddDetails( opts.id3 ) )
 		break
+
 	default:
 		throw new Error( 'Error: Expected a directory string or array of files' )
 
 	}
+
+	// Return the piped output
+	if ( pipe ) return stream
 
 	// Convert the stream to a Promise
 	const promise = new Promise( ( resolve, reject ) => {
@@ -270,6 +286,8 @@ module.exports = function ( filesOrPath, options, cb ) {
 
 	// Callback + return
 	if ( cb ) return promise.then( res => cb( null, res ), err => cb( err, null ) )
+
+	// Promise + return
 	return promise
 
 }

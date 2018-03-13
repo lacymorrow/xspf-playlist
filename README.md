@@ -18,9 +18,13 @@ Place media files into a directory (often named `media`) and pass it to [xspf-pl
 Nested directories can be treated as the `<artist>` and `<album>` fields with a hierarchy like `media/artist/album/track.xxx`
 
 
-### xspfPlaylist( media, [{ options }], [ callback( err, res ) ])
+### xspfPlaylist( media, [, { options }] [, stream] [, callback( err, res ) ])
 
-Accepts either a directory path as a string or an array of track objects as media input. A callback API is provided. Returns a Promise which resolves to a string.
+Accepts either a directory path as a string or an array of track objects as media input. Outputs an XSPF playlist as a sting. 
+
+Stream and Callback APIs are provided if `true` or a `function` are passed as the last parameter, respectively. 
+
+Returns a Promise which resolves to a string by default.
 
 ```javascript
 const xspfPlaylist = require('xspf-playlist')
@@ -30,9 +34,15 @@ xspfPlaylist('/media', {'id3': true, 'depth': 0})
 	.then(console.log)
 ```
 
-###### Or, using a callback
+###### Or, with a stream
 ```javascript
-xspfPlaylist('/media', function (err, res) {
+xspfPlaylist('/media', true)
+    .pipe(process.stdout)
+```
+
+###### Or, with a callback
+```javascript
+xspfPlaylist('/media', {'id3': true, 'depth': 0}, function (err, res) {
 	console.log(res)
 })
 ```
@@ -80,7 +90,9 @@ By default, supported files will be scanned for ID3 tag info which will automati
 Supports `mp3`, `wav`, and `ogg` audio and `mp4`, `webm`, and `ogv` video formats. 
 
 
-## Options
+## API
+
+#### `options`
 
 `options` is a valid JSON object.
 
@@ -97,6 +109,20 @@ By default, this tool will scan two directories deep (in order to accomodate `me
 ##### Default options
 
 `{"id3": true, "depth": 2}`
+
+
+#### `stream`
+_boolean_
+
+If `true` returns a Stream. if `false` returns a Promise.
+Default: `false`. 
+
+
+#### `callback( error, result )`
+_function_
+
+Function to callback when playlist generation is complete. Called with `error` and `result` parameters, `result` is a string.
+
 
 
 ## Related 
