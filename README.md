@@ -30,7 +30,7 @@ Returns a Promise which resolves to a string by default.
 const xspfPlaylist = require('xspf-playlist')
 
 // Scanning a directory
-xspfPlaylist('/media', {'id3': true, 'depth': 0})
+xspfPlaylist('/media')
 	.then(console.log)
 ```
 
@@ -42,12 +42,21 @@ xspfPlaylist('/media', true)
 
 ###### Or, with a callback
 ```javascript
-xspfPlaylist('/media', {'id3': true, 'depth': 0}, function (err, res) {
-	console.log(res)
+xspfPlaylist('/media', function (error, response) {
+	console.log(response)
 })
 ```
 
-###### Example passing an object
+###### Using options
+```javascript
+const xspfPlaylist = require('xspf-playlist')
+
+// Scanning a directory
+xspfPlaylist('/media', {'id3': true, 'depth': 0})
+	.then(console.log)
+```
+
+###### Passing an object
 ```javascript
 xspfPlaylist([
 	{
@@ -118,10 +127,10 @@ If `true` returns a Stream. if `false` returns a Promise.
 Default: `false`. 
 
 
-#### `callback( error, result )`
+#### `callback( error, response )`
 _function_
 
-Function to callback when playlist generation is complete. Called with `error` and `result` parameters, `result` is a string.
+Function to callback when playlist generation is complete. Called with `error` and `response` parameters, `response` is a string.
 
 
 
