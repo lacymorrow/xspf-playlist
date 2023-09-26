@@ -1,4 +1,7 @@
-XSPF Playlist [![npm version](https://badge.fury.io/js/xspf-playlist.svg)](https://badge.fury.io/js/xspf-playlist)
+> [!WARNING]  
+> This project has deprecated dependencies and will receive no new updates
+
+# XSPF Playlist [![npm version](https://badge.fury.io/js/xspf-playlist.svg)](https://badge.fury.io/js/xspf-playlist)
 ===============
 
 > *Automagic XSPF Playlists*
