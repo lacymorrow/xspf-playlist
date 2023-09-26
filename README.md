@@ -1,4 +1,4 @@
-XSPF Playlist [![npm version](https://badge.fury.io/js/xspf-playlist.svg)](https://badge.fury.io/js/xspf-playlist) [![Build Status](https://travis-ci.org/lacymorrow/xspf-playlist.svg?branch=master)](https://travis-ci.org/lacymorrow/xspf-playlist)
+XSPF Playlist [![npm version](https://badge.fury.io/js/xspf-playlist.svg)](https://badge.fury.io/js/xspf-playlist)
 ===============
 
 > *Automagic XSPF Playlists*
