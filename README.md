@@ -1,5 +1,5 @@
 > [!WARNING]
-> This project has deprecated dependencies and will receive no new updates
+> This project has deprecated dependencies and will receive no new updates.
 
 # XSPF Playlist 
 
